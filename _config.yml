@@ -1,0 +1,37 @@
+title: Fontainebleau Muslim Association
+description: >-
+  The official website of the Fontainebleau Muslim Association (FMA),
+  serving the Muslim community of Fontainebleau, Randburg, Johannesburg.
+url: "https://fma-ma.github.io"
+baseurl: "/masjid_site"
+
+timezone: Africa/Johannesburg
+
+markdown: kramdown
+permalink: pretty
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - masjid/
+
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+
+plugins:
+  - jekyll-seo-tag
+
+# MasjidBoard Live board URL — change this once FMA is registered
+masjidboard_url: "https://masjidboardlive.com/boards/?roosevelt-park-raudhatul-islam"
+
+# LiveMasjid.com — change mount name to FMA's once registered
+# minimount.php is the embeddable mini player (same as MasjidBoard uses)
+# Using Roosevelt Park as example until FMA is registered
+livemasjid_mount: "rsvltmasjid"
+livemasjid_player: "https://www.livemasjid.com/minimount.php?mount=rsvltmasjid"
+livemasjid_page: "https://www.livemasjid.com/rsvltmasjid"

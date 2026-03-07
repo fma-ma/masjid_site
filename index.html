@@ -1,0 +1,86 @@
+---
+layout: home
+title: Home
+---
+
+<section class="hero">
+  <div class="container">
+    <p class="bismillah">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</p>
+    <h1>Fontainebleau Muslim Association</h1>
+    <p class="tagline">Serving the Muslim community of Fontainebleau, Randburg</p>
+    <p class="address">10 Silver Pine Avenue, Moret — Parallel to Rabie Street</p>
+    <div class="hero-actions">
+      <a href="/prayer-times/" class="btn btn-accent btn-lg">Prayer Times</a>
+      <a href="/donate/" class="btn btn-gold btn-lg">Donate Now</a>
+      <a href="/listen-live/" class="btn btn-outline btn-lg" style="border-color: #fff; color: #fff;">Listen Live</a>
+    </div>
+  </div>
+</section>
+
+<section class="listen-live-strip">
+  <div class="container">
+    <div class="live-strip-header">
+      <span class="status-dot is-live"></span>
+      <span class="live-strip-title">Listen Live</span>
+      <a href="/listen-live/" class="live-strip-link">Full page &rarr;</a>
+    </div>
+    <div class="live-strip-player">
+      <iframe
+        src="{{ site.livemasjid_player }}"
+        title="FMA Live Audio — LiveMasjid.com"
+        allow="autoplay"
+        loading="lazy"
+        scrolling="no">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<section class="masjidboard-home section">
+  <div class="container">
+    <h2 class="section-title">Prayer Times</h2>
+    <div class="masjidboard-frame">
+      <iframe
+        src="{{ site.masjidboard_url }}"
+        title="FMA Prayer Times — MasjidBoard Live"
+        loading="lazy"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <p class="masjidboard-link">
+      <a href="{{ site.masjidboard_url }}" target="_blank" rel="noopener">
+        Open full MasjidBoard &rarr;
+      </a>
+    </p>
+  </div>
+</section>
+
+<section class="announcements-section section">
+  <div class="container">
+    <h2 class="section-title">Announcements</h2>
+    <div class="announcements-grid" id="announcements">
+      <div class="announcements-empty">
+        <p>Loading announcements...</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fundraising-banner">
+  <div class="container">
+    <h2>Multiply The Reward x 70</h2>
+    <p class="campaign-subtitle">An opportunity for Sawaab e Jaariyaa — both for Living and Marhuum</p>
+    <p class="urgent">A loan of R900k is due by 10 March 2026 — In Sha ALLAH as a community we can achieve this</p>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar">
+        <div class="progress-bar-fill" style="width: 54%"></div>
+      </div>
+      <div class="progress-labels">
+        <span>R0</span>
+        <span>R1.35M raised</span>
+        <span>R2.5M target</span>
+      </div>
+    </div>
+    <a href="/donate/" class="btn btn-primary btn-lg">Donate Now — Lillah Only</a>
+  </div>
+</section>

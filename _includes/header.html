@@ -1,0 +1,29 @@
+<header class="site-header">
+  <nav class="main-nav" aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a href="{{ '/' | relative_url }}" class="nav-logo" aria-label="FMA Home">
+        <span class="logo-icon">🕌</span>
+        <span class="logo-text">
+          <strong>FMA</strong>
+          <small>Fontainebleau Muslim Association</small>
+        </span>
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation">
+        <span class="hamburger"></span>
+      </button>
+
+      <ul class="nav-menu" id="nav-menu" role="menubar">
+        {% for item in site.data.navigation %}
+        <li role="none">
+          <a href="{{ item.url | relative_url }}"
+             role="menuitem"
+             {% if page.url == item.url %}aria-current="page" class="active"{% endif %}>
+            {{ item.title }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </nav>
+</header>

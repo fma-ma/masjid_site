@@ -1,0 +1,39 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <h3>Fontainebleau Muslim Association</h3>
+        <p>Serving the Muslim community of Fontainebleau, Randburg, Johannesburg.</p>
+        <address>
+          10 Silver Pine Avenue, Moret<br>
+          (Parallel to Rabie Street)<br>
+          Fontainebleau, Randburg
+        </address>
+      </div>
+
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+          {% for item in site.data.navigation %}
+          <li><a href="{{ item.url | relative_url }}">{{ item.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="footer-donate">
+        <h3>Donate (Lillah Only)</h3>
+        <ul class="banking-details">
+          <li><strong>Bank:</strong> FNB</li>
+          <li><strong>Acc Name:</strong> Fontainebleau Muslim Association NPC</li>
+          <li><strong>Acc #:</strong> 6317 000 5285</li>
+          <li><strong>Swift:</strong> FIRNZAJJ</li>
+          <li><strong>Ref:</strong> Your Name</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; {{ 'now' | date: '%Y' }} Fontainebleau Muslim Association. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
