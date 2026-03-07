@@ -1,14 +1,9 @@
 (function () {
   'use strict';
 
-  /**
-   * Google Sheets published CSV URLs.
-   * To configure: In Google Sheets go to File > Share > Publish to web > select tab > CSV > Publish
-   * Then paste the URL below.
-   */
   var SHEETS = {
-    announcements: '',
-    programmes: ''
+    announcements: (window.SHEET_URLS && window.SHEET_URLS.announcements) || '',
+    programmes: (window.SHEET_URLS && window.SHEET_URLS.programmes) || ''
   };
 
   function parseCSV(csv) {
@@ -166,38 +161,14 @@
     if (SHEETS.announcements) {
       loadSheet(SHEETS.announcements, renderAnnouncements);
     } else {
-      renderAnnouncements(getDemoAnnouncements());
+      renderAnnouncements([]);
     }
 
     if (SHEETS.programmes) {
       loadSheet(SHEETS.programmes, renderProgrammes);
     } else {
-      renderProgrammes(getDemoProgrammes());
+      renderProgrammes([]);
     }
-  }
-
-  function getDemoAnnouncements() {
-    return [
-      {
-        date: '2026-03-01',
-        title: 'Ramadan Timetable Available',
-        category: 'Announcement',
-        body: 'The Ramadan timetable is now available. Please collect from the masjid or view on the Prayer Times page.'
-      },
-      {
-        date: '2026-03-02',
-        title: 'Ramadan Fundraising Campaign',
-        category: 'Fundraising',
-        body: 'Multiply The Reward x 70 — R1.35M raised so far. A loan of R900k is due by 10 March. Please donate generously.'
-      }
-    ];
-  }
-
-  function getDemoProgrammes() {
-    return [
-      { day: 'Monday', programme: 'Taleem', time: 'After Maghrib', speaker: 'Moulana Saleem' },
-      { day: 'Friday', programme: "Jumu'ah Bayaan", time: '12:30', speaker: 'Guest Speaker' }
-    ];
   }
 
   if (document.readyState === 'loading') {

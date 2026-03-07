@@ -14,6 +14,8 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
+  - GOOGLE_SHEETS_SETUP.md
+  - MAINTAINERS.md
   - masjid/
 
 defaults:
@@ -35,3 +37,8 @@ masjidboard_url: "https://masjidboardlive.com/boards/?roosevelt-park-raudhatul-i
 livemasjid_mount: "rsvltmasjid"
 livemasjid_player: "https://www.livemasjid.com/minimount.php?mount=rsvltmasjid"
 livemasjid_page: "https://www.livemasjid.com/rsvltmasjid"
+
+# Google Sheets published-as-CSV URLs — see GOOGLE_SHEETS_SETUP.md
+sheets:
+  announcements: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3vX2rH4eE2ZLjiJ-Y7FKw6Bsh3LOki_QpnV3JQCSiN4yBsXaisn8OQwnOKohIQaF1x5XFnKTc6dI8/pub?gid=0&single=true&output=csv"
+  programmes: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3vX2rH4eE2ZLjiJ-Y7FKw6Bsh3LOki_QpnV3JQCSiN4yBsXaisn8OQwnOKohIQaF1x5XFnKTc6dI8/pub?gid=1060830073&single=true&output=csv"

@@ -10,9 +10,9 @@ title: Home
     <p class="tagline">Serving the Muslim community of Fontainebleau, Randburg</p>
     <p class="address">10 Silver Pine Avenue, Moret — Parallel to Rabie Street</p>
     <div class="hero-actions">
-      <a href="/prayer-times/" class="btn btn-accent btn-lg">Prayer Times</a>
-      <a href="/donate/" class="btn btn-gold btn-lg">Donate Now</a>
-      <a href="/listen-live/" class="btn btn-outline btn-lg" style="border-color: #fff; color: #fff;">Listen Live</a>
+      <a href="{{ '/prayer-times/' | relative_url }}" class="btn btn-accent btn-lg">Prayer Times</a>
+      <a href="{{ '/donate/' | relative_url }}" class="btn btn-gold btn-lg">Donate Now</a>
+      <a href="{{ '/listen-live/' | relative_url }}" class="btn btn-outline btn-lg" style="border-color: #fff; color: #fff;">Listen Live</a>
     </div>
   </div>
 </section>
@@ -22,7 +22,7 @@ title: Home
     <div class="live-strip-header">
       <span class="status-dot is-live"></span>
       <span class="live-strip-title">Listen Live</span>
-      <a href="/listen-live/" class="live-strip-link">Full page &rarr;</a>
+      <a href="{{ '/listen-live/' | relative_url }}" class="live-strip-link">Full page &rarr;</a>
     </div>
     <div class="live-strip-player">
       <iframe
@@ -81,6 +81,6 @@ title: Home
         <span>R2.5M target</span>
       </div>
     </div>
-    <a href="/donate/" class="btn btn-primary btn-lg">Donate Now — Lillah Only</a>
+    <a href="{{ '/donate/' | relative_url }}" class="btn btn-primary btn-lg">Donate Now — Lillah Only</a>
   </div>
 </section>

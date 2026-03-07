@@ -20,6 +20,12 @@
 
   {% include footer.html %}
 
+  <script>
+    window.SHEET_URLS = {
+      announcements: {{ site.sheets.announcements | default: "" | jsonify }},
+      programmes: {{ site.sheets.programmes | default: "" | jsonify }}
+    };
+  </script>
   <script src="{{ '/assets/js/sheets.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
 </body>
