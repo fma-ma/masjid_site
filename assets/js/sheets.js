@@ -97,45 +97,173 @@
     container.innerHTML = html;
   }
 
+  var PROGRAMME_TYPES = [
+    { key: 'all', label: 'All' },
+    { key: 'children', label: 'Children' },
+    { key: 'youth', label: 'Youth' },
+    { key: 'ladies', label: 'Ladies' },
+    { key: 'social', label: 'Social' }
+  ];
+
+  var TYPE_ICONS = {
+    children: '\uD83D\uDC67',
+    youth: '\uD83E\uDDD1',
+    ladies: '\uD83C\uDF3A',
+    social: '\uD83C\uDF89'
+  };
+
+  function normaliseType(raw) {
+    var t = (raw || '').trim().toLowerCase();
+    for (var i = 1; i < PROGRAMME_TYPES.length; i++) {
+      if (t === PROGRAMME_TYPES[i].key) return t;
+    }
+    return 'general';
+  }
+
+  function groupByType(rows) {
+    var groups = {};
+    rows.forEach(function (row) {
+      var type = normaliseType(row.type);
+      if (!groups[type]) groups[type] = [];
+      groups[type].push(row);
+    });
+    return groups;
+  }
+
+  function buildCard(row) {
+    var type = normaliseType(row.type);
+    var html = '<div class="programme-card" data-type="' + type + '">';
+    html += '<div class="programme-card-header">';
+    html += '<span class="programme-day">' + escapeHTML(row.day || '') + '</span>';
+    if (type !== 'general') {
+      html += '<span class="programme-type-badge programme-type-' + type + '">' + escapeHTML(row.type || '') + '</span>';
+    }
+    html += '</div>';
+    html += '<h3>' + escapeHTML(row.programme || row.title || '') + '</h3>';
+    html += '<div class="programme-meta">';
+    if (row.time) html += '<span>\uD83D\uDD50 ' + escapeHTML(row.time) + '</span>';
+    if (row.speaker) html += '<span>\uD83C\uDFA4 ' + escapeHTML(row.speaker) + '</span>';
+    html += '</div></div>';
+    return html;
+  }
+
   function renderProgrammes(rows) {
     var cardsContainer = document.getElementById('programmes');
     var tableBody = document.getElementById('programmes-table-body');
+    var filtersContainer = document.getElementById('programme-filters');
 
     if (!rows.length) {
       if (cardsContainer) {
         cardsContainer.innerHTML = '<div class="programmes-empty"><p>No programmes scheduled at this time.</p></div>';
       }
       if (tableBody) {
-        tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:2rem;color:var(--clr-text-muted);">No programmes scheduled.</td></tr>';
+        tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--clr-text-muted);">No programmes scheduled.</td></tr>';
       }
+      if (filtersContainer) filtersContainer.style.display = 'none';
       return;
     }
 
-    if (cardsContainer) {
-      var cardsHTML = '';
-      rows.forEach(function (row) {
-        cardsHTML += '<div class="programme-card">';
-        cardsHTML += '<span class="programme-day">' + escapeHTML(row.day || '') + '</span>';
-        cardsHTML += '<h3>' + escapeHTML(row.programme || row.title || '') + '</h3>';
-        cardsHTML += '<div class="programme-meta">';
-        if (row.time) cardsHTML += '<span>🕐 ' + escapeHTML(row.time) + '</span>';
-        if (row.speaker) cardsHTML += '<span>🎤 ' + escapeHTML(row.speaker) + '</span>';
-        cardsHTML += '</div></div>';
+    var groups = groupByType(rows);
+    var hasTypes = Object.keys(groups).some(function (k) { return k !== 'general'; });
+
+    if (filtersContainer && hasTypes) {
+      var filtersHTML = '';
+      PROGRAMME_TYPES.forEach(function (t) {
+        if (t.key !== 'all' && !groups[t.key]) return;
+        var icon = TYPE_ICONS[t.key] || '';
+        var active = t.key === 'all' ? ' active' : '';
+        filtersHTML += '<button class="programme-filter' + active + '" data-filter="' + t.key + '">';
+        if (icon) filtersHTML += icon + ' ';
+        filtersHTML += escapeHTML(t.label) + '</button>';
       });
+      filtersContainer.innerHTML = filtersHTML;
+      filtersContainer.style.display = '';
+
+      filtersContainer.addEventListener('click', function (e) {
+        var btn = e.target.closest('.programme-filter');
+        if (!btn) return;
+        var filter = btn.getAttribute('data-filter');
+        filtersContainer.querySelectorAll('.programme-filter').forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        filterProgrammes(filter, cardsContainer, tableBody);
+      });
+    } else if (filtersContainer) {
+      filtersContainer.style.display = 'none';
+    }
+
+    if (cardsContainer) {
+      var sectionOrder = ['general', 'children', 'youth', 'ladies', 'social'];
+      var cardsHTML = '';
+
+      sectionOrder.forEach(function (typeKey) {
+        var typeRows = groups[typeKey];
+        if (!typeRows || !typeRows.length) return;
+
+        var sectionLabel = typeKey === 'general' ? 'General Programmes' : PROGRAMME_TYPES.reduce(function (a, t) { return t.key === typeKey ? t.label + ' Programmes' : a; }, '');
+        var icon = TYPE_ICONS[typeKey] || '\uD83D\uDCD6';
+
+        if (hasTypes) {
+          cardsHTML += '<div class="programme-section" data-section="' + typeKey + '">';
+          cardsHTML += '<h2 class="programme-section-title">' + icon + ' ' + escapeHTML(sectionLabel) + '</h2>';
+        }
+
+        typeRows.forEach(function (row) {
+          cardsHTML += buildCard(row);
+        });
+
+        if (hasTypes) {
+          cardsHTML += '</div>';
+        }
+      });
+
       cardsContainer.innerHTML = cardsHTML;
     }
 
     if (tableBody) {
       var tableHTML = '';
       rows.forEach(function (row) {
-        tableHTML += '<tr>';
+        var type = normaliseType(row.type);
+        tableHTML += '<tr data-type="' + type + '">';
         tableHTML += '<td>' + escapeHTML(row.day || '') + '</td>';
         tableHTML += '<td>' + escapeHTML(row.programme || row.title || '') + '</td>';
         tableHTML += '<td>' + escapeHTML(row.time || '') + '</td>';
         tableHTML += '<td>' + escapeHTML(row.speaker || '') + '</td>';
+        tableHTML += '<td>';
+        if (type !== 'general') {
+          tableHTML += '<span class="programme-type-badge programme-type-' + type + '">' + escapeHTML(row.type || '') + '</span>';
+        }
+        tableHTML += '</td>';
         tableHTML += '</tr>';
       });
       tableBody.innerHTML = tableHTML;
+    }
+  }
+
+  function filterProgrammes(filter, cardsContainer, tableBody) {
+    if (cardsContainer) {
+      cardsContainer.querySelectorAll('.programme-section').forEach(function (section) {
+        if (filter === 'all') {
+          section.style.display = '';
+        } else {
+          section.style.display = section.getAttribute('data-section') === filter ? '' : 'none';
+        }
+      });
+      cardsContainer.querySelectorAll('.programme-card').forEach(function (card) {
+        if (filter === 'all') {
+          card.style.display = '';
+        } else {
+          card.style.display = card.getAttribute('data-type') === filter ? '' : 'none';
+        }
+      });
+    }
+    if (tableBody) {
+      tableBody.querySelectorAll('tr[data-type]').forEach(function (row) {
+        if (filter === 'all') {
+          row.style.display = '';
+        } else {
+          row.style.display = row.getAttribute('data-type') === filter ? '' : 'none';
+        }
+      });
     }
   }
 

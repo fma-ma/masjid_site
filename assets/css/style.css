@@ -731,11 +731,99 @@ address {
   margin-bottom: 0.25rem;
 }
 
+.programme-card .programme-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
 .programme-card .programme-meta {
   display: flex;
   gap: 1rem;
   font-size: var(--fs-sm);
   color: var(--clr-text-muted);
+}
+
+/* Programme filter tabs */
+.programme-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.programme-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--clr-border);
+  border-radius: 2rem;
+  background: var(--clr-white);
+  color: var(--clr-text-muted);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.programme-filter:hover {
+  border-color: var(--clr-primary);
+  color: var(--clr-primary);
+  background: var(--clr-primary-light);
+}
+
+.programme-filter.active {
+  border-color: var(--clr-primary);
+  background: var(--clr-primary);
+  color: var(--clr-white);
+}
+
+/* Programme section headings */
+.programme-section {
+  margin-bottom: 1.5rem;
+}
+
+.programme-section-title {
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  color: var(--clr-text);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--clr-border);
+}
+
+/* Programme type badges */
+.programme-type-badge {
+  display: inline-block;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  padding: 0.15rem 0.6rem;
+  border-radius: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.programme-type-children {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.programme-type-youth {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.programme-type-ladies {
+  background: #fce7f3;
+  color: #9d174d;
+}
+
+.programme-type-social {
+  background: var(--clr-accent-light);
+  color: #166534;
 }
 
 /* ============================================================

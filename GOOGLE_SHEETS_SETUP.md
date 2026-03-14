@@ -45,9 +45,9 @@ Name this tab **Programmes**.
 
 Create these column headers in **Row 1** (spelling must be exact):
 
-| Column A | Column B  | Column C | Column D |
-|----------|-----------|----------|----------|
-| Day      | Programme | Time     | Speaker  |
+| Column A | Column B  | Column C | Column D | Column E |
+|----------|-----------|----------|----------|----------|
+| Day      | Programme | Time     | Speaker  | Type     |
 
 ### Column definitions
 
@@ -55,12 +55,17 @@ Create these column headers in **Row 1** (spelling must be exact):
 - **Programme** — Name of the class, talk, or event (e.g. `Taleem`, `Jumu'ah Bayaan`).
 - **Time** — When it takes place (e.g. `After Maghrib`, `12:30`).
 - **Speaker** — Name of the speaker or facilitator.
+- **Type** — Category of programme. Use one of: `Children`, `Youth`, `Ladies`, `Social`, or leave blank for general programmes. The website groups and filters programmes by this value.
 
-### Example row
+### Example rows
 
-| Day    | Programme | Time          | Speaker         |
-|--------|-----------|---------------|-----------------|
-| Monday | Taleem    | After Maghrib | Moulana Saleem  |
+| Day       | Programme           | Time          | Speaker         | Type     |
+|-----------|---------------------|---------------|-----------------|----------|
+| Monday    | Taleem              | After Maghrib | Moulana Saleem  |          |
+| Saturday  | Madrasah            | 09:00         | Ustadh Bilal    | Children |
+| Friday    | Youth Halaqah       | After Isha    | Moulana Ismail  | Youth    |
+| Sunday    | Ladies Ta'leem      | 10:00         | Apa Fatimah     | Ladies   |
+| Saturday  | Community Braai     | 12:00         |                 | Social   |
 
 ---
 
@@ -122,7 +127,7 @@ Commit and push the change. After the site redeploys, it will start pulling live
 | Problem | Solution |
 |---------|----------|
 | Data not showing up | Check that the sheet is still published (File → Share → Publish to web → Published content). |
-| Columns not mapping correctly | Ensure Row 1 headers match exactly: `Date`, `Title`, `Category`, `Body` for Announcements; `Day`, `Programme`, `Time`, `Speaker` for Programmes. |
+| Columns not mapping correctly | Ensure Row 1 headers match exactly: `Date`, `Title`, `Category`, `Body` for Announcements; `Day`, `Programme`, `Time`, `Speaker`, `Type` for Programmes. |
 | "No announcements at this time" | Either the URL is empty/wrong in `_config.yml`, or the sheet has no data rows below the header. |
 | Changes not appearing | Google Sheets publishing can cache for up to 5 minutes. Wait and refresh. |
 | Sheet was accidentally unpublished | Re-publish using File → Share → Publish to web. The URL stays the same. |
