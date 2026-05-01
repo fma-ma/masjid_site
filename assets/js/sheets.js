@@ -323,7 +323,10 @@
     if (!wrap) return;
     if (!rows.length) { wrap.style.display = 'none'; return; }
 
-    var dateStr = (rows[0]['effective from'] || rows[0]['effective'] || '').trim();
+    var dateStr = '';
+    for (var i = 0; i < rows.length && !dateStr; i++) {
+      dateStr = (rows[i]['effective from'] || rows[i]['effective'] || rows[i]['effectivefrom'] || rows[i]['date'] || '').trim();
+    }
     var headingEl = document.getElementById('salaah-next-heading');
     if (headingEl) {
       headingEl.textContent = dateStr ? 'Upcoming Time Changes — Effective ' + dateStr : 'Upcoming Time Changes';
