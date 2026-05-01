@@ -9,6 +9,7 @@
   };
 
   function parseCSV(csv) {
+    csv = csv.replace(/^﻿/, '');
     var lines = csv.split('\n');
     if (lines.length < 2) return [];
 
