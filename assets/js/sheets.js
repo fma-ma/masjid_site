@@ -317,81 +317,6 @@
     tbody.innerHTML = html;
   }
 
-  function formatSalaahDate(dateStr) {
-    var parts = dateStr.split('-');
-    if (parts.length !== 3) return dateStr;
-    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    return parseInt(parts[2], 10) + ' ' + months[parseInt(parts[1], 10) - 1] + ' ' + parts[0];
-  }
-
-  function groupSalaahByDate(rows) {
-    var groups = {};
-    rows.forEach(function (row) {
-      var dateKey = (row['effective from'] || row['effective'] || '').trim();
-      if (!groups[dateKey]) groups[dateKey] = [];
-      groups[dateKey].push(row);
-    });
-    return groups;
-  }
-
-  function getCurrentAndFutureSalaah(rows) {
-    var today = new Date().toISOString().slice(0, 10);
-    var groups = groupSalaahByDate(rows);
-    var dates = Object.keys(groups).filter(function (d) { return d; }).sort();
-
-    var currentDate = '';
-    var futureDates = [];
-
-    dates.forEach(function (d) {
-      if (d <= today) {
-        currentDate = d;
-      } else {
-        futureDates.push(d);
-      }
-    });
-
-    var currentRows = currentDate ? groups[currentDate] : (groups[''] || rows);
-
-    return {
-      current: currentRows || [],
-      future: futureDates.map(function (d) { return { date: d, rows: groups[d] }; })
-    };
-  }
-
-  function renderSalaahUpcoming(futureGroups) {
-    var wrap = document.getElementById('salaah-upcoming-wrap');
-    var container = document.getElementById('salaah-upcoming');
-    if (!container) return;
-
-    if (!futureGroups.length) {
-      if (wrap) wrap.style.display = 'none';
-      return;
-    }
-
-    if (wrap) wrap.style.display = '';
-
-    var html = '';
-    futureGroups.forEach(function (group) {
-      html += '<div class="salaah-upcoming-group">';
-      html += '<h4 class="salaah-upcoming-date">Effective from ' + escapeHTML(formatSalaahDate(group.date)) + '</h4>';
-      html += '<table class="salaah-table salaah-table-upcoming"><thead><tr><th>Salaah</th><th>Begins</th><th>Jamaat</th></tr></thead><tbody>';
-      group.rows.forEach(function (row) {
-        var name = row.salaah || row.salah || row.name || '';
-        var begins = row.begins || row.start || row.athaan || row.adhan || '';
-        var jamaat = row.jamaat || row.iqaamah || row.iqamah || row.congregation || '';
-        var cls = salaahRowClass(name);
-        html += '<tr' + (cls ? ' class="' + cls + '"' : '') + '>';
-        html += '<td>' + escapeHTML(name) + '</td>';
-        html += '<td>' + escapeHTML(begins) + '</td>';
-        html += '<td>' + escapeHTML(jamaat) + '</td>';
-        html += '</tr>';
-      });
-      html += '</tbody></table></div>';
-    });
-
-    container.innerHTML = html;
-  }
-
   function renderSalaahDate() {
     var el = document.getElementById('salaah-date');
     if (!el) return;
@@ -434,10 +359,8 @@
     renderSalaahDate();
     if (SHEETS.salaah) {
       loadSheet(SHEETS.salaah, function (rows) {
-        var result = getCurrentAndFutureSalaah(rows);
-        renderSalaahBoard(result.current, 'salaah-body');
-        renderSalaahBoard(result.current, 'salaah-body-home');
-        renderSalaahUpcoming(result.future);
+        renderSalaahBoard(rows, 'salaah-body');
+        renderSalaahBoard(rows, 'salaah-body-home');
       });
     } else {
       renderSalaahBoard([], 'salaah-body');

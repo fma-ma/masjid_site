@@ -710,44 +710,6 @@ address {
   }
 }
 
-/* Upcoming salaah time changes */
-.salaah-upcoming-wrap {
-  max-width: 680px;
-  margin: 2rem auto 0;
-}
-
-.salaah-upcoming-heading {
-  text-align: center;
-  font-size: var(--fs-lg);
-  font-weight: var(--fw-semibold);
-  color: var(--clr-text);
-  margin-bottom: 1rem;
-}
-
-.salaah-upcoming-group {
-  background: var(--clr-surface);
-  border: 1px solid var(--clr-border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  margin-bottom: 1rem;
-}
-
-.salaah-upcoming-date {
-  background: var(--clr-primary);
-  color: #fff;
-  font-size: var(--fs-sm);
-  font-weight: var(--fw-semibold);
-  padding: 0.5rem 1rem;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.salaah-table-upcoming tbody td {
-  font-size: var(--fs-base);
-  padding: 0.6rem 1rem;
-}
-
 /* ============================================================
    HOMEPAGE — ANNOUNCEMENTS
    ============================================================ */
