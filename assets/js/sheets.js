@@ -324,11 +324,9 @@
     if (!rows.length) { wrap.style.display = 'none'; return; }
 
     var dateStr = (rows[0]['effective from'] || rows[0]['effective'] || '').trim();
-    var dateEl = document.getElementById('salaah-next-date');
-    if (dateEl && dateStr) {
-      var d = new Date(dateStr + 'T00:00:00');
-      var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-      dateEl.textContent = 'Effective from ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+    var headingEl = document.getElementById('salaah-next-heading');
+    if (headingEl) {
+      headingEl.textContent = dateStr ? 'Upcoming Time Changes — Effective ' + dateStr : 'Upcoming Time Changes';
     }
 
     wrap.style.display = '';

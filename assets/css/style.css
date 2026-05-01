@@ -724,13 +724,6 @@ address {
   margin-bottom: 0.25rem;
 }
 
-.salaah-next-date {
-  text-align: center;
-  font-size: var(--fs-sm);
-  color: var(--clr-primary);
-  font-weight: var(--fw-medium);
-  margin-bottom: 1rem;
-}
 
 /* ============================================================
    HOMEPAGE — ANNOUNCEMENTS
