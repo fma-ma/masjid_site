@@ -321,20 +321,32 @@
 
   function renderSalaahNext(rows) {
     var wrap = document.getElementById('salaah-next-wrap');
-    if (!wrap) return;
+    var tbody = document.getElementById('salaah-next-body');
+    if (!wrap || !tbody) return;
     if (!rows.length) { wrap.style.display = 'none'; return; }
 
-    var dateStr = '';
-    for (var i = 0; i < rows.length && !dateStr; i++) {
-      dateStr = (rows[i]['effective from'] || rows[i]['effective'] || rows[i]['effectivefrom'] || rows[i]['date'] || '').trim();
-    }
-    var headingEl = document.getElementById('salaah-next-heading');
-    if (headingEl) {
-      headingEl.textContent = dateStr ? 'Upcoming Time Changes — Effective ' + dateStr : 'Upcoming Time Changes';
-    }
-
     wrap.style.display = '';
-    renderSalaahBoard(rows, 'salaah-next-body');
+
+    var html = '';
+    rows.forEach(function (row) {
+      var name = row.salaah || row.salah || row.name || '';
+      var begins = row.begins || row.start || row.athaan || row.adhan || '';
+      var jamaat = row.jamaat || row.iqaamah || row.iqamah || row.congregation || '';
+      var effective = row['effective from'] || row['effective'] || row['effectivefrom'] || row['date'] || '';
+      var cls = salaahRowClass(name);
+      var arabic = SALAAH_ARABIC[name.toLowerCase()] || '';
+
+      html += '<tr' + (cls ? ' class="' + cls + '"' : '') + '>';
+      html += '<td>' + escapeHTML(name);
+      if (arabic) html += ' <span style="font-family:Amiri,serif;font-size:0.85em;opacity:0.7;">' + arabic + '</span>';
+      html += '</td>';
+      html += '<td>' + escapeHTML(begins) + '</td>';
+      html += '<td>' + escapeHTML(jamaat) + '</td>';
+      html += '<td>' + escapeHTML(effective) + '</td>';
+      html += '</tr>';
+    });
+
+    tbody.innerHTML = html;
   }
 
   function renderSalaahDate() {
