@@ -321,9 +321,17 @@
   function renderSalaahNext(rows) {
     var wrap = document.getElementById('salaah-next-wrap');
     if (!wrap) return;
-    var tbody = document.getElementById('salaah-next-body');
-    if (!tbody) return;
-    wrap.style.display = rows.length ? '' : 'none';
+    if (!rows.length) { wrap.style.display = 'none'; return; }
+
+    var dateStr = (rows[0]['effective from'] || rows[0]['effective'] || '').trim();
+    var dateEl = document.getElementById('salaah-next-date');
+    if (dateEl && dateStr) {
+      var d = new Date(dateStr + 'T00:00:00');
+      var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      dateEl.textContent = 'Effective from ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+    }
+
+    wrap.style.display = '';
     renderSalaahBoard(rows, 'salaah-next-body');
   }
 
