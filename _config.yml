@@ -45,3 +45,5 @@ sheets:
   # Salaah times tab — columns: Salaah, Begins, Jamaat
   # Add a new tab to the same spreadsheet, publish as CSV, and paste the URL below
   salaah: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3vX2rH4eE2ZLjiJ-Y7FKw6Bsh3LOki_QpnV3JQCSiN4yBsXaisn8OQwnOKohIQaF1x5XFnKTc6dI8/pub?gid=1954153707&single=true&output=csv"
+  # Future salaah times tab — same columns as above. Paste URL when ready.
+  salaah_next: ""

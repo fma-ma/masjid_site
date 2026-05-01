@@ -4,7 +4,8 @@
   var SHEETS = {
     announcements: (window.SHEET_URLS && window.SHEET_URLS.announcements) || '',
     programmes: (window.SHEET_URLS && window.SHEET_URLS.programmes) || '',
-    salaah: (window.SHEET_URLS && window.SHEET_URLS.salaah) || ''
+    salaah: (window.SHEET_URLS && window.SHEET_URLS.salaah) || '',
+    salaah_next: (window.SHEET_URLS && window.SHEET_URLS.salaah_next) || ''
   };
 
   function parseCSV(csv) {
@@ -317,6 +318,15 @@
     tbody.innerHTML = html;
   }
 
+  function renderSalaahNext(rows) {
+    var wrap = document.getElementById('salaah-next-wrap');
+    if (!wrap) return;
+    var tbody = document.getElementById('salaah-next-body');
+    if (!tbody) return;
+    wrap.style.display = rows.length ? '' : 'none';
+    renderSalaahBoard(rows, 'salaah-next-body');
+  }
+
   function renderSalaahDate() {
     var el = document.getElementById('salaah-date');
     if (!el) return;
@@ -365,6 +375,10 @@
     } else {
       renderSalaahBoard([], 'salaah-body');
       renderSalaahBoard([], 'salaah-body-home');
+    }
+
+    if (SHEETS.salaah_next) {
+      loadSheet(SHEETS.salaah_next, renderSalaahNext);
     }
   }
 

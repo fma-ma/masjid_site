@@ -710,6 +710,20 @@ address {
   }
 }
 
+/* Upcoming salaah times */
+.salaah-next-wrap {
+  max-width: 680px;
+  margin: 2rem auto 0;
+}
+
+.salaah-next-heading {
+  text-align: center;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  color: var(--clr-text);
+  margin-bottom: 1rem;
+}
+
 /* ============================================================
    HOMEPAGE — ANNOUNCEMENTS
    ============================================================ */

@@ -24,7 +24,8 @@
     window.SHEET_URLS = {
       announcements: {{ site.sheets.announcements | default: "" | jsonify }},
       programmes: {{ site.sheets.programmes | default: "" | jsonify }},
-      salaah: {{ site.sheets.salaah | default: "" | jsonify }}
+      salaah: {{ site.sheets.salaah | default: "" | jsonify }},
+      salaah_next: {{ site.sheets.salaah_next | default: "" | jsonify }}
     };
   </script>
   <script src="{{ '/assets/js/sheets.js' | relative_url }}"></script>
