@@ -540,6 +540,177 @@ address {
 }
 
 /* ============================================================
+   SALAAH TIMETABLE — MASJID BOARD STYLE
+   ============================================================ */
+
+.salaah-board {
+  background: linear-gradient(180deg, #0a3d2a 0%, #0d4f36 50%, #0a3d2a 100%);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  border: 3px solid #c5982a;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.salaah-board-header {
+  text-align: center;
+  padding: 2rem 1.5rem 1rem;
+  border-bottom: 2px solid rgba(197, 152, 42, 0.4);
+}
+
+.salaah-bismillah {
+  font-family: var(--ff-arabic);
+  font-size: var(--fs-2xl);
+  color: #c5982a;
+  direction: rtl;
+  margin-bottom: 0.5rem;
+}
+
+.salaah-board-title {
+  color: #c5982a;
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.03em;
+  margin-bottom: 0.25rem;
+}
+
+.salaah-board-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.salaah-date {
+  margin-top: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: var(--fs-sm);
+}
+
+.salaah-table-wrap {
+  padding: 1rem 1.5rem;
+}
+
+.salaah-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 4px;
+}
+
+.salaah-table thead th {
+  padding: 0.75rem 1rem;
+  text-align: center;
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #c5982a;
+  border-bottom: 2px solid rgba(197, 152, 42, 0.3);
+}
+
+.salaah-table thead th:first-child {
+  text-align: left;
+}
+
+.salaah-table tbody td {
+  padding: 0.875rem 1rem;
+  text-align: center;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.salaah-table tbody td:first-child {
+  text-align: left;
+  color: #c5982a;
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-base);
+  letter-spacing: 0.02em;
+}
+
+.salaah-table tbody tr:hover td {
+  background: rgba(197, 152, 42, 0.1);
+}
+
+.salaah-table tbody tr.salaah-row-jumuah td {
+  color: #c5982a;
+  font-weight: var(--fw-bold);
+  border-top: 2px solid rgba(197, 152, 42, 0.3);
+  border-bottom: 2px solid rgba(197, 152, 42, 0.3);
+  background: rgba(197, 152, 42, 0.08);
+}
+
+.salaah-table tbody tr.salaah-row-sunrise td {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: var(--fw-normal);
+  font-size: var(--fs-base);
+}
+
+.salaah-loading {
+  text-align: center !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+  font-style: italic;
+  padding: 2rem 1rem !important;
+  font-weight: var(--fw-normal) !important;
+  font-size: var(--fs-base) !important;
+}
+
+.salaah-board-footer {
+  text-align: center;
+  padding: 0.75rem 1.5rem 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.salaah-board-footer p {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: var(--fs-xs);
+}
+
+/* Compact version for homepage */
+.salaah-board-compact {
+  max-width: 600px;
+}
+
+.salaah-board-compact .salaah-table tbody td {
+  padding: 0.625rem 0.75rem;
+  font-size: var(--fs-base);
+}
+
+.salaah-board-compact .salaah-table thead th {
+  padding: 0.5rem 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .salaah-board-header {
+    padding: 2.5rem 2rem 1.25rem;
+  }
+
+  .salaah-bismillah {
+    font-size: var(--fs-3xl);
+  }
+
+  .salaah-board-title {
+    font-size: var(--fs-2xl);
+  }
+
+  .salaah-table-wrap {
+    padding: 1rem 2rem;
+  }
+
+  .salaah-table tbody td {
+    font-size: var(--fs-xl);
+    padding: 1rem 1.25rem;
+  }
+
+  .salaah-table thead th {
+    font-size: var(--fs-base);
+  }
+}
+
+/* ============================================================
    HOMEPAGE — ANNOUNCEMENTS
    ============================================================ */
 

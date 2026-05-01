@@ -36,20 +36,28 @@ title: Home
   </div>
 </section>
 
-<section class="masjidboard-home section">
+<section class="section" style="background: var(--clr-white); box-shadow: var(--shadow-sm);">
   <div class="container">
     <h2 class="section-title">Prayer Times</h2>
-    <div class="masjidboard-frame">
-      <iframe
-        src="{{ site.masjidboard_url }}"
-        title="FMA Prayer Times — MasjidBoard Live"
-        loading="lazy"
-        allowfullscreen>
-      </iframe>
+    <div class="salaah-board salaah-board-compact">
+      <div class="salaah-table-wrap">
+        <table class="salaah-table" id="salaah-table-home">
+          <thead>
+            <tr>
+              <th>Salaah</th>
+              <th>Begins</th>
+              <th>Jamaat</th>
+            </tr>
+          </thead>
+          <tbody id="salaah-body-home">
+            <tr><td colspan="3" class="salaah-loading">Loading salaah times...</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <p class="masjidboard-link">
-      <a href="{{ site.masjidboard_url }}" target="_blank" rel="noopener">
-        Open full MasjidBoard &rarr;
+    <p style="text-align:center; margin-top:0.75rem; font-size:var(--fs-sm);">
+      <a href="{{ '/prayer-times/' | relative_url }}" style="color:var(--clr-primary); font-weight:var(--fw-medium);">
+        View full timetable &rarr;
       </a>
     </p>
   </div>

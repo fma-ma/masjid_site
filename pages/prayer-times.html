@@ -1,28 +1,34 @@
 ---
 layout: page
 title: Prayer Times
-subtitle: Daily Salaah times via MasjidBoard Live
+subtitle: Daily Salaah Times
 permalink: /prayer-times/
 ---
 
-<div class="masjidboard-frame masjidboard-full">
-  <iframe
-    src="{{ site.masjidboard_url }}"
-    title="FMA Prayer Times — MasjidBoard Live"
-    loading="lazy"
-    allowfullscreen>
-  </iframe>
-</div>
+<div class="salaah-board">
+  <div class="salaah-board-header">
+    <p class="salaah-bismillah">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</p>
+    <h2 class="salaah-board-title">Fontainebleau Muslim Association</h2>
+    <p class="salaah-board-subtitle">Daily Salaah Timetable</p>
+    <div class="salaah-date" id="salaah-date"></div>
+  </div>
 
-<p class="masjidboard-link" style="margin-top: 1rem;">
-  <a href="{{ site.masjidboard_url }}" target="_blank" rel="noopener">
-    Open full MasjidBoard in new tab &rarr;
-  </a>
-</p>
+  <div class="salaah-table-wrap">
+    <table class="salaah-table" id="salaah-table">
+      <thead>
+        <tr>
+          <th>Salaah</th>
+          <th>Begins</th>
+          <th>Jamaat</th>
+        </tr>
+      </thead>
+      <tbody id="salaah-body">
+        <tr><td colspan="3" class="salaah-loading">Loading salaah times...</td></tr>
+      </tbody>
+    </table>
+  </div>
 
-<div style="margin-top: 2rem; text-align: center;">
-  <p style="color: var(--clr-text-muted); font-size: var(--fs-sm);">
-    Prayer and iqamah times are maintained via MasjidBoard Live.<br>
-    Times are updated by the masjid admin and sync across all platforms automatically.
-  </p>
+  <div class="salaah-board-footer">
+    <p>Times are updated by the masjid admin via Google Sheets</p>
+  </div>
 </div>

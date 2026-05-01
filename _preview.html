@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salaah Board Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    body { padding: 2rem 1rem; background: var(--clr-bg); }
+    h1 { text-align: center; margin-bottom: 2rem; color: var(--clr-primary-dark); }
+    .preview-section { margin-bottom: 3rem; }
+    .preview-label { text-align: center; font-size: var(--fs-sm); color: var(--clr-text-muted); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  </style>
+</head>
+<body>
+
+  <h1>Salaah Board Preview</h1>
+
+  <!-- Full prayer-times page version -->
+  <div class="preview-section">
+    <p class="preview-label">Full Page Version (prayer-times.html)</p>
+    <div class="salaah-board">
+      <div class="salaah-board-header">
+        <p class="salaah-bismillah">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</p>
+        <h2 class="salaah-board-title">Fontainebleau Muslim Association</h2>
+        <p class="salaah-board-subtitle">Daily Salaah Timetable</p>
+        <div class="salaah-date" id="salaah-date"></div>
+      </div>
+      <div class="salaah-table-wrap">
+        <table class="salaah-table" id="salaah-table">
+          <thead>
+            <tr>
+              <th>Salaah</th>
+              <th>Begins</th>
+              <th>Jamaat</th>
+            </tr>
+          </thead>
+          <tbody id="salaah-body">
+          </tbody>
+        </table>
+      </div>
+      <div class="salaah-board-footer">
+        <p>Times are updated by the masjid admin via Google Sheets</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compact homepage version -->
+  <div class="preview-section">
+    <p class="preview-label">Compact Homepage Version (index.html)</p>
+    <div class="salaah-board salaah-board-compact">
+      <div class="salaah-table-wrap">
+        <table class="salaah-table" id="salaah-table-home">
+          <thead>
+            <tr>
+              <th>Salaah</th>
+              <th>Begins</th>
+              <th>Jamaat</th>
+            </tr>
+          </thead>
+          <tbody id="salaah-body-home">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Demo data since no Google Sheet is connected yet
+    var DEMO_TIMES = [
+      { salaah: 'Fajr', begins: '05:15', jamaat: '05:45' },
+      { salaah: 'Sunrise', begins: '06:32', jamaat: '' },
+      { salaah: 'Zuhr', begins: '12:10', jamaat: '12:30' },
+      { salaah: 'Asr', begins: '15:25', jamaat: '15:50' },
+      { salaah: 'Maghrib', begins: '17:38', jamaat: '17:43' },
+      { salaah: 'Esha', begins: '19:00', jamaat: '19:30' },
+      { salaah: 'Jumuah', begins: '12:10', jamaat: '13:00' }
+    ];
+
+    var SALAAH_ARABIC = {
+      'fajr': '\u0627\u0644\u0641\u062C\u0631',
+      'sunrise': '\u0627\u0644\u0634\u0631\u0648\u0642',
+      'zuhr': '\u0627\u0644\u0638\u0647\u0631',
+      'asr': '\u0627\u0644\u0639\u0635\u0631',
+      'maghrib': '\u0627\u0644\u0645\u063A\u0631\u0628',
+      'esha': '\u0627\u0644\u0639\u0634\u0627\u0621',
+      'jumuah': '\u0627\u0644\u062C\u0645\u0639\u0629'
+    };
+
+    function escapeHTML(str) {
+      var div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function salaahRowClass(name) {
+      var n = (name || '').toLowerCase();
+      if (n === 'jumuah' || n === "jumu'ah" || n === 'jumah') return 'salaah-row-jumuah';
+      if (n === 'sunrise' || n === 'shuruq') return 'salaah-row-sunrise';
+      return '';
+    }
+
+    function renderBoard(rows, bodyId) {
+      var tbody = document.getElementById(bodyId);
+      if (!tbody) return;
+      var html = '';
+      rows.forEach(function (row) {
+        var name = row.salaah;
+        var arabic = SALAAH_ARABIC[name.toLowerCase()] || '';
+        var cls = salaahRowClass(name);
+        html += '<tr' + (cls ? ' class="' + cls + '"' : '') + '>';
+        html += '<td>' + escapeHTML(name);
+        if (arabic) html += ' <span style="font-family:Amiri,serif;font-size:0.85em;opacity:0.7;">' + arabic + '</span>';
+        html += '</td>';
+        html += '<td>' + escapeHTML(row.begins) + '</td>';
+        html += '<td>' + escapeHTML(row.jamaat) + '</td>';
+        html += '</tr>';
+      });
+      tbody.innerHTML = html;
+    }
+
+    // Render date
+    var dateEl = document.getElementById('salaah-date');
+    if (dateEl) {
+      var now = new Date();
+      dateEl.textContent = now.toLocaleDateString('en-ZA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    // Render both boards with demo data
+    renderBoard(DEMO_TIMES, 'salaah-body');
+    renderBoard(DEMO_TIMES, 'salaah-body-home');
+  </script>
+</body>
+</html>

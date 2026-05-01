@@ -3,7 +3,8 @@
 
   var SHEETS = {
     announcements: (window.SHEET_URLS && window.SHEET_URLS.announcements) || '',
-    programmes: (window.SHEET_URLS && window.SHEET_URLS.programmes) || ''
+    programmes: (window.SHEET_URLS && window.SHEET_URLS.programmes) || '',
+    salaah: (window.SHEET_URLS && window.SHEET_URLS.salaah) || ''
   };
 
   function parseCSV(csv) {
@@ -267,6 +268,63 @@
     }
   }
 
+  /* ---- Salaah Timetable ---- */
+
+  var SALAAH_ARABIC = {
+    'fajr': 'الفجر',
+    'sunrise': 'الشروق',
+    'zuhr': 'الظهر',
+    'asr': 'العصر',
+    'maghrib': 'المغرب',
+    'esha': 'العشاء',
+    'isha': 'العشاء',
+    'jumuah': 'الجمعة'
+  };
+
+  function salaahRowClass(name) {
+    var n = (name || '').toLowerCase();
+    if (n === 'jumuah' || n === "jumu'ah" || n === 'jumah') return 'salaah-row-jumuah';
+    if (n === 'sunrise' || n === 'shuruq') return 'salaah-row-sunrise';
+    return '';
+  }
+
+  function renderSalaahBoard(rows, bodyId) {
+    var tbody = document.getElementById(bodyId);
+    if (!tbody) return;
+
+    if (!rows.length) {
+      tbody.innerHTML = '<tr><td colspan="3" class="salaah-loading">Salaah times not available yet.<br>Waiting for Google Sheet data.</td></tr>';
+      return;
+    }
+
+    var html = '';
+    rows.forEach(function (row) {
+      var name = row.salaah || row.salah || row.name || '';
+      var begins = row.begins || row.start || row.athaan || row.adhan || '';
+      var jamaat = row.jamaat || row.iqaamah || row.iqamah || row.congregation || '';
+      var cls = salaahRowClass(name);
+      var arabic = SALAAH_ARABIC[name.toLowerCase()] || '';
+
+      html += '<tr' + (cls ? ' class="' + cls + '"' : '') + '>';
+      html += '<td>' + escapeHTML(name);
+      if (arabic) html += ' <span style="font-family:Amiri,serif;font-size:0.85em;opacity:0.7;">' + arabic + '</span>';
+      html += '</td>';
+      html += '<td>' + escapeHTML(begins) + '</td>';
+      html += '<td>' + escapeHTML(jamaat) + '</td>';
+      html += '</tr>';
+    });
+
+    tbody.innerHTML = html;
+  }
+
+  function renderSalaahDate() {
+    var el = document.getElementById('salaah-date');
+    if (!el) return;
+    var now = new Date();
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    el.textContent = now.toLocaleDateString('en-ZA', options);
+  }
+
   function loadSheet(url, callback) {
     if (!url) {
       callback([]);
@@ -296,6 +354,17 @@
       loadSheet(SHEETS.programmes, renderProgrammes);
     } else {
       renderProgrammes([]);
+    }
+
+    renderSalaahDate();
+    if (SHEETS.salaah) {
+      loadSheet(SHEETS.salaah, function (rows) {
+        renderSalaahBoard(rows, 'salaah-body');
+        renderSalaahBoard(rows, 'salaah-body-home');
+      });
+    } else {
+      renderSalaahBoard([], 'salaah-body');
+      renderSalaahBoard([], 'salaah-body-home');
     }
   }
 
