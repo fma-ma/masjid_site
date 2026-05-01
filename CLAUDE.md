@@ -28,7 +28,7 @@ Jekyll static site hosted on GitHub Pages at `https://fma-ma.github.io/masjid_si
 **Google Sheet column names** (headers are lowercased and trimmed before matching):
 - Announcements tab: `Title`, `Date`, `Category`, `Body`
 - Programmes tab: `Day`, `Programme`, `Time`, `Speaker`, `Type` (type values: `children`, `youth`, `ladies`, `social`)
-- Salaah tab: `Salaah`, `Begins`, `Jamaat` (also accepts aliases: `Salah`/`Name`, `Athaan`/`Adhan`/`Start`, `Iqaamah`/`Iqamah`/`Congregation`)
+- Salaah tab: `Effective From` (YYYY-MM-DD), `Salaah`, `Begins`, `Jamaat` — rows are grouped by date; the site automatically shows the most recent date ≤ today as current times, and any future-dated groups appear as "Upcoming Time Changes" on the Prayer Times page. The `Effective From` column is optional for backward compatibility (rows without it are always treated as current). Column aliases also accepted: `Salah`/`Name`, `Athaan`/`Adhan`/`Start`, `Iqaamah`/`Iqamah`/`Congregation`
 
 **Salaah board special rows** — rows named `Jumuah` get gold highlight styling; rows named `Sunrise`/`Shuruq` get muted styling. Arabic names are added automatically from a lookup table in `sheets.js`.
 
